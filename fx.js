@@ -37,8 +37,8 @@
         screens.forEach(function (s, k) { s.classList.toggle('on', k === i); });
         steps.forEach(function (s, k) { s.classList.toggle('on', k === i); });
       }
-      var ry = (p - 0.5) * 36, rx = 8 - Math.sin(p * Math.PI) * 8;
-      phone.style.transform = 'rotateY(' + ry.toFixed(2) + 'deg) rotateX(' + rx.toFixed(2) + 'deg) translateY(' + ((0.5 - Math.abs(p - 0.5)) * -24).toFixed(1) + 'px)';
+      var ry = (p - 0.5) * 14, rx = 3 - Math.sin(p * Math.PI) * 3;
+      phone.style.transform = 'rotateY(' + ry.toFixed(2) + 'deg) rotateX(' + rx.toFixed(2) + 'deg) translateY(' + ((0.5 - Math.abs(p - 0.5)) * -10).toFixed(1) + 'px)';
     });
   }, 'show');
 
@@ -48,7 +48,7 @@
     var num = $('[data-big-num]', el), cap = $('.big__cap', el);
     scene(el, function (p) {
       var a = clamp(p / 0.7, 0, 1), e = 1 - Math.pow(1 - a, 3);
-      num.style.transform = 'scale(' + (1.7 - 0.7 * e).toFixed(3) + ')';
+      num.style.transform = 'scale(' + (1.25 - 0.25 * e).toFixed(3) + ')';
       num.style.backgroundPosition = (100 - e * 100).toFixed(1) + '% 0';
       cap.style.opacity = clamp((p - 0.45) / 0.25, 0, 1);
       cap.style.transform = 'translateY(' + ((1 - clamp((p - 0.45) / 0.25, 0, 1)) * 32).toFixed(1) + 'px)';
@@ -63,45 +63,25 @@
     var hero = $('.hero'), text = $('.hero__grid > div:first-child'), stage = $('.hero .phone-stage');
     g.set(stage, { transformPerspective: 1100 });
     var tl = g.timeline({ defaults: { ease: 'expo.out', duration: 1.2 } });
-    tl.from($$('.hero .eyebrow, .hero h1, .hero__sub, .hero__cta, .hero .proof'), { y: 48, opacity: 0, stagger: 0.09 })
-      .from($('.hero .phone'), { y: 180, rotateX: 38, opacity: 0, duration: 1.6 }, 0.15)
-      .from($$('.hero .float'), { scale: 0.6, opacity: 0, stagger: 0.12, ease: 'back.out(1.7)', duration: 0.9 }, 0.8);
+    tl.from($$('.hero .eyebrow, .hero h1, .hero__sub, .hero__cta, .hero .proof'), { y: 20, opacity: 0, stagger: 0.07, duration: 0.9, ease: 'power3.out' })
+      .from($('.hero .phone'), { y: 48, rotateX: 10, opacity: 0, duration: 1.2, ease: 'power3.out' }, 0.15)
+      .from($$('.hero .float'), { y: 8, opacity: 0, stagger: 0.1, ease: 'power2.out', duration: 0.7 }, 0.7);
     if (!window.ScrollTrigger) return;
-    g.to(stage, { y: -90, rotateX: 16, scale: 0.9, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.6 } });
-    g.to(text, { y: -70, opacity: 0.15, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.6 } });
+    g.to(stage, { y: -40, rotateX: 6, scale: 0.97, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.6 } });
+    g.to(text, { y: -32, opacity: 0.45, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.6 } });
 
     // tarjetas que entran escalonadas, como en las páginas de producto
     $$('.pains, .steps, .bento, .prices, .stats').forEach(function (box) {
       var kids = [].slice.call(box.children);
       kids.forEach(function (k) { k.classList.remove('rv'); k.classList.add('in'); });
-      g.from(kids, { y: 80, opacity: 0, rotateX: -8, transformPerspective: 900, stagger: 0.1, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: box, start: 'top 85%' } });
+      g.from(kids, { y: 24, opacity: 0, stagger: 0.06, duration: 0.7, ease: 'power2.out', clearProps: 'transform', scrollTrigger: { trigger: box, start: 'top 88%', once: true } });
     });
 
     // titulares que se separan letra a letra al entrar no: solo un deslizamiento limpio con máscara
     $$('.h2').forEach(function (h) {
-      g.from(h, { clipPath: 'inset(0 0 100% 0)', y: 40, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 88%' } });
+      g.from(h, { y: 16, opacity: 0, duration: 0.8, ease: 'power2.out', scrollTrigger: { trigger: h, start: 'top 90%', once: true } });
     });
   }, 'hero');
-
-  /* ---------- inclinación 3D en tarifas y botones magnéticos ---------- */
-  safe(function () {
-    if (!fine) return;
-    $$('.price, .card').forEach(function (c) {
-      c.classList.add('tilt');
-      c.addEventListener('mousemove', function (e) {
-        var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-        c.style.transform = 'perspective(900px) rotateY(' + (x * 6).toFixed(2) + 'deg) rotateX(' + (-y * 6).toFixed(2) + 'deg) translateY(-4px)';
-      });
-      c.addEventListener('mouseleave', function () { c.style.transform = ''; });
-    });
-    $$('.btn--fire, .btn--ball').forEach(function (b) {
-      b.addEventListener('mousemove', function (e) {
-        var r = b.getBoundingClientRect();
-        b.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * 0.18).toFixed(1) + 'px,' + ((e.clientY - r.top - r.height / 2) * 0.3).toFixed(1) + 'px)';
-      });
-      b.addEventListener('mouseleave', function () { b.style.transform = ''; });
-    });
-  }, 'micro');
 
   // Red de seguridad: nada se queda oculto aunque falle un observador
   setTimeout(function () { $$('.rv:not(.in)').forEach(function (e) { e.classList.add('in'); }); }, 6000);
