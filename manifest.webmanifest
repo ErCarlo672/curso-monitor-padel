@@ -1,0 +1,15 @@
+{
+  "name": "Wild Padel Academy · Campus",
+  "short_name": "Wild Academy",
+  "description": "Campus del curso de monitor de pádel de Wild Padel Academy",
+  "lang": "es",
+  "start_url": "campus.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#131209",
+  "icons": [
+    { "src": "assets/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Campus · Wild Padel Academy</title>
+  <meta name="description" content="Demo del campus del curso de monitor de pádel de Wild Padel Academy: lecciones, tests, directos y diploma.">
+  <meta name="theme-color" content="#131209">
+  <link rel="icon" href="favicon.svg?v=20261022d" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+  <link rel="stylesheet" href="styles.css?v=20261022d">
+</head>
+<body>
+  <a class="skip" href="#vista">Saltar al contenido</a>
+  <div class="app">
+    <div class="demo-bar">
+      <span><i class="ph-fill ph-eye"></i> Estás en la demo del campus. Así verás el curso por dentro.</span>
+      <a href="./#tarifas">Reservar mi plaza</a>
+    </div>
+
+    <aside class="side" aria-label="Campus">
+      <a href="./" aria-label="Volver a la web"><img src="assets/img/logo-light.webp" alt="Wild Padel" width="144" height="24"></a>
+      <nav data-tabs>
+        <button class="tab" data-go="inicio"><i class="ph ph-house"></i>Inicio</button>
+        <button class="tab" data-go="temario"><i class="ph ph-books"></i>Temario</button>
+        <button class="tab" data-go="directos"><i class="ph ph-broadcast"></i>Directos</button>
+        <button class="tab" data-go="finde"><i class="ph ph-map-pin"></i>Finde presencial</button>
+        <button class="tab" data-go="diploma"><i class="ph ph-certificate"></i>Diploma</button>
+      </nav>
+      <div class="side__user"><span class="avatar" data-initial>A</span><div><b data-username>Alumno demo</b><small data-plan>Tarifa Premium</small></div></div>
+    </aside>
+
+    <main class="view" id="vista" tabindex="-1" aria-live="polite">
+      <div class="skel" style="height:40px;width:240px;margin-bottom:24px"></div>
+      <div class="grid2"><div class="skel" style="height:200px"></div><div class="skel" style="height:200px"></div></div>
+    </main>
+
+    <nav class="bottom-tabs" data-tabs aria-label="Campus">
+      <button class="tab" data-go="inicio"><i class="ph ph-house"></i>Inicio</button>
+      <button class="tab" data-go="temario"><i class="ph ph-books"></i>Temario</button>
+      <button class="tab" data-go="directos"><i class="ph ph-broadcast"></i>Directos</button>
+      <button class="tab" data-go="finde"><i class="ph ph-map-pin"></i>Finde</button>
+      <button class="tab" data-go="diploma"><i class="ph ph-certificate"></i>Diploma</button>
+    </nav>
+  </div>
+
+  <script src="config.js?v=20261022d"></script>
+  <script src="curso.js?v=20261022d"></script>
+  <script src="campus.js?v=20261022d"></script>
+</body>
+</html>

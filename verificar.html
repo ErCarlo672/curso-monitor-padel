@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verificar diploma · Wild Padel Academy</title>
+  <meta name="description" content="Comprueba si un monitor de pádel tiene el diploma de Wild Padel Academy introduciendo su código.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="favicon.svg?v=20261022d" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+  <link rel="stylesheet" href="styles.css?v=20261022d">
+</head>
+<body>
+  <a class="skip" href="#main">Saltar al contenido</a>
+  <header class="nav">
+    <div class="nav__pill">
+      <a class="nav__brand" href="./"><img src="assets/img/logo-light.webp" alt="Wild Padel, volver a la web" width="120" height="20"></a>
+      <a class="btn btn--ghost btn--sm" href="./">Volver a la web</a>
+    </div>
+  </header>
+  <main id="main" class="verify">
+    <p class="eyebrow mono"><i class="ph-fill ph-seal-check ball"></i> Registro de monitores</p>
+    <h1 class="h2">Verificar un diploma</h1>
+    <p class="lead">Cada monitor formado en Wild Padel Academy recibe un código único. Si eres un club y quieres comprobarlo, escríbelo aquí.</p>
+    <form data-verify novalidate>
+      <label for="code" class="muted" style="width:100%">Código del diploma</label>
+      <input id="code" class="field" placeholder="WPA-2027-001" autocomplete="off" aria-describedby="out">
+      <button class="btn btn--fire" type="submit">Comprobar</button>
+    </form>
+    <div class="verify__out" id="out" aria-live="polite"></div>
+  </main>
+  <footer class="pie"><div class="wrap pie__grid"><p>&copy; 2026 Wild Padel Academy</p><nav aria-label="Legal"><a href="legal.html">Aviso legal y privacidad</a><a href="./">Curso de monitor</a></nav></div></footer>
+  <script src="config.js?v=20261022d"></script>
+  <script>
+    (() => {
+      const f = document.querySelector('[data-verify]'), inp = document.getElementById('code'), out = document.getElementById('out');
+      const q = new URLSearchParams(location.search).get('c');
+      const check = () => {
+        const c = inp.value.trim().toUpperCase().replace(/\s+/g, '');
+        if (!/^WPA-\d{4}-\d{3,}$/.test(c)) {
+          inp.setAttribute('aria-invalid', 'true');
+          out.innerHTML = '<p class="msg msg--err">El código tiene este formato: WPA-2027-001.</p>';
+          return;
+        }
+        inp.removeAttribute('aria-invalid');
+        const d = (WPA.diplomas || []).find(x => x.codigo.toUpperCase() === c);
+        out.innerHTML = d
+          ? `<div class="panel"><p class="msg msg--ok" style="margin-bottom:16px"><i class="ph-fill ph-seal-check"></i> Diploma válido</p><h2 style="font-size:24px;line-height:32px">${d.nombre}</h2><p class="muted">Curso de Monitor de Pádel · tarifa ${d.tarifa}${d.tarifa === 'Premium' ? ' con prácticas presenciales' : ''}<br>Emitido el ${new Date(d.fecha).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</p></div>`
+          : `<div class="empty"><i class="ph ph-magnifying-glass"></i><b>No encontramos ese código</b>Revisa que esté bien escrito. Si crees que es un error, escríbenos a ${WPA.email}.</div>`;
+      };
+      f.addEventListener('submit', e => { e.preventDefault(); check(); });
+      if (q) { inp.value = q; check(); }
+    })();
+  </script>
+</body>
+</html>
