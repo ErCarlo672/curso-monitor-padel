@@ -426,3 +426,85 @@ button.row:active{transform:scale(.99)}
 @media (min-width:980px){.coach{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}.finde{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 .stat{min-width:0}
 @media (max-width:599px){.stat{padding:12px}.stat b{font-size:24px;line-height:32px}}
+
+/* ===================== ESCENAS DE SCROLL ===================== */
+/* --- vuelo 3D por la pista --- */
+.world{position:relative;height:520vh}
+.world__stick{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
+.world canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.world__shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.82) 0,rgba(0,0,0,.35) 45%,transparent 70%),linear-gradient(0deg,#000 0,transparent 18%),linear-gradient(180deg,#000 0,transparent 14%)}
+.world__ui{position:relative;height:100%;display:flex;align-items:center}
+.chapter{position:absolute;max-width:520px;opacity:0;transform:translateY(48px);filter:blur(10px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease);pointer-events:none}
+.chapter.on{opacity:1;transform:none;filter:none;pointer-events:auto}
+.chapter h2{font-size:36px;line-height:40px;margin-bottom:16px}
+.chapter p:not(.eyebrow){color:#C9C7C0;font-size:18px;line-height:28px;max-width:440px}
+.chapter .btn{margin-top:24px}
+.chapter__n{display:inline-grid;place-items:center;width:32px;height:24px;border-radius:999px;background:var(--orange);color:#000;font-weight:500}
+@media (min-width:900px){.chapter h2{font-size:60px;line-height:1}}
+.world__rail{position:absolute;right:var(--gut);top:50%;transform:translateY(-50%);list-style:none;display:grid;gap:12px;font-size:12px;line-height:16px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
+.world__rail li{display:flex;align-items:center;justify-content:flex-end;gap:8px;transition:color .7s var(--ease)}
+.world__rail li::after{content:"";width:8px;height:8px;border-radius:50%;border:1px solid var(--line-2);transition:background-color .7s var(--ease),border-color .7s var(--ease)}
+.world__rail li.on{color:var(--ink)}
+.world__rail li.on::after{background:var(--orange);border-color:var(--orange)}
+.world__bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--card-2)}
+.world__bar i{display:block;height:100%;background:var(--orange);transform-origin:left;transform:scaleX(0)}
+@media (max-width:899px){
+  .world{height:460vh}
+  .world__shade{background:linear-gradient(0deg,rgba(0,0,0,.92) 0,rgba(0,0,0,.6) 38%,transparent 62%),linear-gradient(180deg,#000 0,transparent 16%)}
+  .world__ui{align-items:flex-end;padding-bottom:calc(48px + env(safe-area-inset-bottom))}
+  .chapter{bottom:calc(48px + env(safe-area-inset-bottom));left:var(--gut);right:var(--gut)}
+  .chapter p:not(.eyebrow){font-size:16px;line-height:24px}
+  .world__rail{display:none}
+}
+/* sin WebGL: los capítulos se leen uno debajo de otro */
+.world--flat{height:auto}
+.world--flat .world__stick{position:relative;height:auto;padding:96px 0}
+.world--flat canvas,.world--flat .world__rail,.world--flat .world__bar,.world--flat .world__shade{display:none}
+.world--flat .world__ui{display:grid;gap:48px}
+.world--flat .chapter{position:static;opacity:1;transform:none;filter:none}
+
+/* --- campus: móvil fijo con pantallas que cambian --- */
+.show{position:relative;height:400vh;margin-bottom:48px}
+.show__stick{position:sticky;top:0;height:100vh;height:100dvh;display:grid;grid-template-columns:minmax(0,1fr);align-content:center;gap:24px}
+@media (min-width:900px){.show__stick{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:48px}}
+.show__steps{list-style:none;display:grid;gap:8px;order:2}
+@media (min-width:900px){.show__steps{order:0}}
+.show__steps li{padding:16px 24px;border-radius:24px;border:1px solid transparent;opacity:.32;transition:opacity .7s var(--ease),background-color .7s var(--ease),border-color .7s var(--ease),transform .7s var(--ease)}
+.show__steps li.on{opacity:1;background:var(--card);border-color:var(--line);transform:translateX(8px)}
+.show__steps h3{font-size:20px;line-height:28px;margin:4px 0}
+.show__steps p{color:var(--muted);font-size:14px;line-height:20px}
+@media (max-width:899px){.show__steps li{display:none;padding:16px}.show__steps li.on{display:block;transform:none}}
+.show__stage{display:flex;justify-content:center;perspective:1200px}
+.show__phone{width:248px;transform-style:preserve-3d;will-change:transform}
+@media (min-width:900px){.show__phone{width:300px}}
+@media (max-height:700px){.show__phone{width:200px}}
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transform:scale(1.06);transition:opacity .7s var(--ease),transform .7s var(--ease);background:#000}
+.scr.on{opacity:1;transform:none}
+.scr .phone__video{flex:0 0 62%}
+.scr--pad{padding:48px 16px 16px;gap:12px}
+.scr--center{align-items:center;justify-content:center;text-align:center}
+.scr h4{font-size:16px;line-height:24px;font-weight:700}
+.scr .phone__opts span{padding:8px 12px;font-size:13px;line-height:16px}
+.scr__meta{color:var(--muted);font-size:12px;line-height:16px}
+.scr__ok{margin-top:auto;padding:8px 12px;border-radius:12px;background:rgba(223,255,61,.12);color:var(--ball);font-size:13px;line-height:16px;font-weight:700}
+.scr--center .scr__ok{margin-top:16px}
+.scr__lvl{font-size:24px!important;line-height:32px!important}
+.scr .ring{width:120px;height:120px}
+.scr__dip{width:100%;border-radius:16px;background:var(--ink);color:#000;padding:24px 16px;display:grid;gap:8px;justify-items:center}
+.scr__dip img{height:18px;width:auto}
+.scr__dip b{font-size:20px;line-height:28px;margin-top:8px}
+.scr__dip span{font-size:12px;line-height:16px;color:#444}
+.scr__dip small{font-family:var(--mono);font-size:12px;line-height:16px;color:#777}
+
+/* --- cifra gigante que se rellena --- */
+.big{position:relative;height:220vh}
+.big__stick{position:sticky;top:0;height:100vh;height:100dvh;display:grid;place-content:center;text-align:center;overflow:hidden;padding:0 var(--gut)}
+.big__num{font-size:30vw;line-height:1;font-weight:800;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:2px var(--line-2);background:linear-gradient(90deg,var(--orange) 0,var(--orange) 50%,transparent 50%);background-size:200% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;will-change:transform}
+@media (min-width:1200px){.big__num{font-size:24vw}}
+.big__cap{font-size:20px;line-height:28px;font-weight:700;margin-top:24px;max-width:640px;margin-left:auto;margin-right:auto}
+
+/* --- micro interacciones --- */
+.tilt{transform-style:preserve-3d;transition:transform .7s var(--ease)}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:4px}
+.hero h1 .ln>span{display:block;background:inherit;-webkit-background-clip:text;background-clip:text}
+.rv[data-safe]{opacity:1;transform:none;filter:none}
